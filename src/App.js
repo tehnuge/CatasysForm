@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 
 class App extends React.Component {
@@ -65,51 +66,58 @@ class App extends React.Component {
         </ul>
       </div>
     }
+    else {
+      healthConcerns = <div>
+      <h3>History</h3>
+      <small className="text-muted">None</small>
+    </div>
+    }
 
     return (
-      <div className="App">
-        <form>
-          <h2>
-            Patient Information
+      <div className="container-fluid">
+        <h2>
+          Patient Information
         </h2>
-          <div className="name">
-            <label>
-              First Name
-              <input type="text" name="firstName" onChange={this.handleChange} />
-            </label>
+        <form>
+            <div className="form-group">
+              <label>
+                First Name
+                </label>
+              <input type="text" className="form-control" name="firstName" onChange={this.handleChange} />
+            </div>
             <label>
               Last Name
-              <input type="text" name="lastName" onChange={this.handleChange} />
-            </label>
-          </div>
-          <div className="dob">
-            DOB (drop down selection)
-            <DatePicker name='dob' selected={this.state.dob} onChange={this.handleDateChange} />
-          </div>
-
-          <label>
-            Phone number <input type="text" maxLength='10' name="phone" onChange={this.handleChange}></input>
-          </label>
-
-          <h2>Care Information</h2>
-
-          <div>
-            Are you currently under a PCP?
-            <div onChange={this.handleChange}>
-              <input type="radio" value="true" name="hasPcp" /> Yes
-              <input type="radio" value="false" name="hasPcp" /> No
+              </label>
+              <input type="text" className="form-control" name="lastName" onChange={this.handleChange} />
+            <div className="form-group dob">
+              <label>DOB</label>
+              <DatePicker name='dob' selected={this.state.dob} onChange={this.handleDateChange} />
             </div>
-          </div>
-          {pcp}
-          <h2>Health Concerns and Symptoms</h2>
-          <div>
-            What are your current health concerns?
+
+            <label>
+              Phone number
+              </label>
+            <input type="tel" className="form-control" maxLength='10' name="phone" onChange={this.handleChange}></input>
+
+            <h2>Care Information</h2>
+
             <div>
-              <textarea name='newHealthConcerns' onChange={this.handleChange} />
+              Are you currently under a PCP?
+            <div onChange={this.handleChange}>
+                <input  type="radio" value="true" name="hasPcp" /> <label className="form-check-label">Yes</label>
+              <input  type="radio" value="false" name="hasPcp" /> <label className="form-check-label">No</label>
             </div>
-          </div>
-          {healthConcerns}
-          <input type="submit" value="Submit" onClick={this.handleSubmit} />
+            </div>
+            {pcp}
+            <h2>Health Concerns and Symptoms</h2>
+            <div>
+              What are your current health concerns?
+            <div>
+                <textarea name='newHealthConcerns' onChange={this.handleChange} />
+              </div>
+            </div>
+            {healthConcerns}
+            <input type="button" value="Submit" onClick={this.handleSubmit} />
         </form>
       </div>
     );
